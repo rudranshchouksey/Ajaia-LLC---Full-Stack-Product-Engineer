@@ -53,6 +53,10 @@ let client: Client | null = null;
 let ready: Promise<void> | null = null;
 
 function createDbClient(): Client {
+  if (!process.env.DATABASE_URL && process.env.VERCEL) {
+    // Vercel's filesystem is read-only/ephemeral, so a local SQLite file can't work there.
+    throw new Error("DATABASE_URL is not set. On Vercel, point it at a Turso database (see README > Deploy).");
+  }
   const url = process.env.DATABASE_URL || DEFAULT_URL;
   if (url.startsWith("file:")) {
     // Make sure the directory for the local SQLite file exists.
