@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { api, errorMessage } from "@/lib/api-client";
 import type { DocumentSummary } from "@/lib/documents";
 import { formatDateTime, timeAgo } from "@/lib/format";
+import { ImportButton } from "./ImportButton";
 import { RoleBadge } from "./RoleBadge";
 
 type Props = { owned: DocumentSummary[]; shared: DocumentSummary[]; userName: string };
@@ -56,16 +57,20 @@ export function Dashboard({ owned, shared, userName }: Props) {
           <h1 className="text-2xl font-semibold tracking-tight text-slate-900">Documents</h1>
           <p className="mt-1 text-sm text-slate-500">Welcome back, {userName.split(" ")[0]}.</p>
         </div>
-        <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={createDocument}
-            disabled={creating}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:opacity-60"
-          >
-            <span aria-hidden className="text-base leading-none">+</span>
-            {creating ? "Creating…" : "New document"}
-          </button>
+        <div className="flex flex-col items-start gap-1.5 sm:items-end">
+          <div className="flex flex-wrap gap-2">
+            <ImportButton />
+            <button
+              type="button"
+              onClick={createDocument}
+              disabled={creating}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:opacity-60"
+            >
+              <span aria-hidden className="text-base leading-none">+</span>
+              {creating ? "Creating…" : "New document"}
+            </button>
+          </div>
+          <p className="text-xs text-slate-500">Import supports .txt, .md and .docx files up to 2 MB.</p>
         </div>
       </div>
 

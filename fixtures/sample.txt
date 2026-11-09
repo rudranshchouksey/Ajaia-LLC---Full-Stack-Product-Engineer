@@ -1,0 +1,6 @@
+Meeting notes, plain text
+
+This file was imported from a .txt file.
+Single line breaks are kept inside a paragraph.
+
+A blank line starts a new paragraph. Characters like <b>tags</b> & ampersands are shown literally.

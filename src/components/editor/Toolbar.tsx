@@ -22,7 +22,9 @@ export function Toolbar({ editor }: { editor: Editor | null }) {
     },
   });
 
-  const disabled = !editor || !state;
+  // Note: `state` can be null until the editor's first transaction (e.g. right
+  // after load), so only the editor's existence gates the buttons.
+  const disabled = !editor;
   const chain = () => editor!.chain().focus();
 
   return (
