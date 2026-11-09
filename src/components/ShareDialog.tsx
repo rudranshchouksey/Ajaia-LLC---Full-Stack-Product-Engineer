@@ -79,12 +79,13 @@ export function ShareButton({ documentId, documentTitle, owner }: Props) {
       <button
         type="button"
         onClick={open}
-        className="inline-flex items-center gap-1.5 rounded-full bg-blue-600 px-4 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+        aria-label="Share"
+        className="inline-flex items-center gap-1.5 rounded-full bg-blue-600 px-3 py-1.5 sm:px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
       >
         <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
           <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M19 8v6M22 11h-6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        Share
+        <span className="hidden sm:inline">Share</span>
       </button>
 
       <dialog

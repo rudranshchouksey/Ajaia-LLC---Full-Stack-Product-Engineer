@@ -31,7 +31,7 @@ export function Toolbar({ editor }: { editor: Editor | null }) {
     <div
       role="toolbar"
       aria-label="Formatting"
-      className="flex flex-wrap items-center gap-0.5 rounded-full border border-slate-200 bg-slate-50 px-2 py-1"
+      className="mx-auto flex w-max items-center gap-0.5 rounded-full border border-slate-200 bg-slate-50 px-2 py-1"
     >
       <ToolButton label="Undo" shortcut="Ctrl+Z" disabled={disabled || !state?.canUndo} onClick={() => chain().undo().run()}>
         <Icon d="M9 14 4 9l5-5M4 9h10.5a5.5 5.5 0 0 1 0 11H11" />

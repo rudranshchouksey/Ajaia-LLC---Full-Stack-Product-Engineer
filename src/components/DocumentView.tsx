@@ -12,6 +12,7 @@ import { AccessBanner } from "./AccessBanner";
 import { Avatar } from "./Avatar";
 import { Logo } from "./Logo";
 import { ShareButton } from "./ShareDialog";
+import { ExportButton } from "./editor/ExportButton";
 import { getExtensions } from "./editor/extensions";
 import { SaveIndicator } from "./editor/SaveIndicator";
 import { TitleInput } from "./editor/TitleInput";
@@ -89,17 +90,18 @@ export function DocumentView({ doc, user }: { doc: DocumentDetail; user: User })
             />
           </div>
           {editable && <SaveIndicator status={status} error={error} onRetry={retry} />}
-          <div className="flex shrink-0 items-center gap-2 pl-1">
+          <div className="flex shrink-0 items-center gap-1 pl-1 sm:gap-2">
+            <ExportButton editor={editor} title={currentTitle.trim() || DEFAULT_TITLE} />
             {isOwner && (
               <ShareButton documentId={doc.id} documentTitle={currentTitle.trim() || DEFAULT_TITLE} owner={user} />
             )}
-            <span title={`Signed in as ${user.email}`}>
+            <span title={`Signed in as ${user.email}`} className="hidden sm:inline-flex">
               <Avatar name={user.name} size="sm" />
             </span>
           </div>
         </div>
         {editable && (
-          <div className="flex justify-center overflow-x-auto border-t border-slate-100 px-3 py-1.5">
+          <div className="overflow-x-auto border-t border-slate-100 px-3 py-1.5">
             <Toolbar editor={editor} />
           </div>
         )}
