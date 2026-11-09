@@ -1,6 +1,7 @@
 import { getDb, newId } from "./db";
 import { forbidden, notFound, badRequest } from "./http";
 import { getAccess, canEdit, canManage, type Access, type ShareRole } from "./permissions";
+import { DEFAULT_TITLE, MAX_TITLE_LENGTH } from "./limits";
 import { getUserByEmail, normalizeEmail } from "./users";
 
 /**
@@ -29,8 +30,7 @@ export type Share = {
   role: ShareRole;
 };
 
-export const DEFAULT_TITLE = "Untitled document";
-export const MAX_TITLE_LENGTH = 200;
+export { DEFAULT_TITLE, MAX_TITLE_LENGTH };
 
 type Row = Record<string, unknown>;
 

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MAX_TITLE_LENGTH } from "./documents";
+import { MAX_TITLE_LENGTH } from "./limits";
 
 /** zod schemas for every API request body / param. */
 
