@@ -2,14 +2,16 @@
 
 import { EditorContent, useEditor, type Content } from "@tiptap/react";
 import Link from "next/link";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useAutosave } from "@/hooks/useAutosave";
 import type { DocumentDetail } from "@/lib/documents";
+import { DEFAULT_TITLE } from "@/lib/limits";
 import { canEdit, canManage } from "@/lib/permissions";
 import type { User } from "@/lib/users";
 import { AccessBanner } from "./AccessBanner";
 import { Avatar } from "./Avatar";
 import { Logo } from "./Logo";
+import { ShareButton } from "./ShareDialog";
 import { getExtensions } from "./editor/extensions";
 import { SaveIndicator } from "./editor/SaveIndicator";
 import { TitleInput } from "./editor/TitleInput";
@@ -21,6 +23,7 @@ export function DocumentView({ doc, user }: { doc: DocumentDetail; user: User })
   // useEditor is created before useAutosave (which needs the editor), so the
   // change callback is wired through a ref.
   const onChangeRef = useRef<() => void>(() => {});
+  const [currentTitle, setCurrentTitle] = useState(doc.title);
 
   const editor = useEditor({
     extensions: getExtensions(editable ? "Start writing…" : ""),
@@ -78,12 +81,18 @@ export function DocumentView({ doc, user }: { doc: DocumentDetail; user: User })
             <TitleInput
               initialTitle={doc.title}
               editable={isOwner}
-              onChange={setTitle}
+              onChange={(t) => {
+                setCurrentTitle(t);
+                setTitle(t);
+              }}
               onCommit={() => void flush()}
             />
           </div>
           {editable && <SaveIndicator status={status} error={error} onRetry={retry} />}
           <div className="flex shrink-0 items-center gap-2 pl-1">
+            {isOwner && (
+              <ShareButton documentId={doc.id} documentTitle={currentTitle.trim() || DEFAULT_TITLE} owner={user} />
+            )}
             <span title={`Signed in as ${user.email}`}>
               <Avatar name={user.name} size="sm" />
             </span>
